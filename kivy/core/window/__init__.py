@@ -991,6 +991,11 @@ class WindowBase(EventDispatcher):
                 'left', '_size', 'system_size'):
             self.unbind(**{prop: self.trigger_create_window})
 
+    def mainloop(self):
+        '''Called by the EventLoop every frame after it idles.
+        '''
+        pass
+
     def register(self):
         if self.initialized:
             return
