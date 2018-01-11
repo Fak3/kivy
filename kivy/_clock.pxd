@@ -24,8 +24,6 @@ cdef class ClockEvent(object):
     cdef public double _dt
     cdef public list _del_queue
 
-    cdef public list async_queues
-
     cpdef get_callback(self)
     cpdef cancel(self)
     cpdef release(self)
