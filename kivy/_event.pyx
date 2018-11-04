@@ -13,6 +13,7 @@ handlers.
 
 __all__ = ('EventDispatcher', 'ObjectWithUid', 'Observable', 'AsyncBindQueue')
 
+import inspect
 from libc.stdlib cimport malloc, free
 from libc.string cimport memset
 
@@ -779,7 +780,12 @@ cdef class EventDispatcher(ObjectWithUid):
             return True
 
         handler = getattr(self, event_type)
-        return handler(*largs, **kwargs)
+        if inspect.iscoroutinefunction(handler):
+            from kivy.app import App
+            App.get_running_app().nursery.start_soon(handler, *largs, **kwargs)
+            return True
+        else:
+            return handler(*largs, **kwargs)
 
     def dispatch_generic(self, basestring event_type, *largs, **kwargs):
         if event_type in self.__event_stack:

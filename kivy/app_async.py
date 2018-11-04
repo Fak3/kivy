@@ -2,6 +2,7 @@
 ===========================================
 '''
 
+import trio
 from kivy.base import async_runTouchApp
 
 
@@ -14,5 +15,7 @@ class AsyncApp(object):
         .. versionadded:: 1.10.1
         '''
         self._run_prepare()
-        await async_runTouchApp()
+        async with trio.open_nursery() as nursery:
+            self.nursery = nursery
+            await async_runTouchApp()
         self.stop()
