@@ -468,6 +468,8 @@ cdef extern from "SDL.h":
     cdef int SDL_INIT_EVENTS         = 0x00004000
     cdef int SDL_INIT_NOPARACHUTE    = 0x00100000  # Don't catch fatal signals */
 
+    cdef void Android_ActivityMutex_Lock()
+    cdef void Android_ActivityMutex_Unlock()
     cdef void SDL_GetVersion(SDL_version * ver)
     cdef SDL_Renderer * SDL_CreateRenderer(SDL_Window * window, int index, Uint32 flags)
     cdef void SDL_DestroyRenderer (SDL_Renderer * renderer)
