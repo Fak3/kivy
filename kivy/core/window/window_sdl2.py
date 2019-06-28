@@ -705,12 +705,12 @@ class WindowSDL(WindowBase):
         from kivy.app import App
         from kivy.base import stopTouchApp
         app = App.get_running_app()
-        if not app:
-            Logger.info('WindowSDL: No running App found, exit.')
-            stopTouchApp()
-            return
+        #if not app:
+            #Logger.info('WindowSDL: No running App found, exit.')
+            #stopTouchApp()
+            #return
 
-        if not app.dispatch('on_pause'):
+        if app and not app.dispatch('on_pause'):
             Logger.info('WindowSDL: App doesn\'t support pause mode, stop.')
             stopTouchApp()
             return
@@ -731,8 +731,8 @@ class WindowSDL(WindowBase):
                 break
             elif action == 'windowrestored':
                 break
-
-        app.dispatch('on_resume')
+        if app:
+            app.dispatch('on_resume')
 
     def _update_modifiers(self, mods=None, key=None):
         if mods is None and key is None:
