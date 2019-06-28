@@ -101,8 +101,7 @@ cdef class _WindowSDL2Storage:
             self.win_flags |= SDL_WINDOW_MINIMIZED
         elif state == 'hidden':
             self.win_flags |= SDL_WINDOW_HIDDEN
-            
-        Android_ActivityMutex_Lock()
+
         SDL_SetHint(SDL_HINT_ACCELEROMETER_AS_JOYSTICK, b'0')
 
         SDL_SetHintWithPriority(b'SDL_ANDROID_TRAP_BACK_BUTTON', b'1',
@@ -243,8 +242,6 @@ cdef class _WindowSDL2Storage:
         SDL_EventState(SDL_DROPFILE, SDL_ENABLE)
         cdef int w, h
         SDL_GetWindowSize(self.win, &w, &h)
-        
-        Android_ActivityMutex_Unlock()
         return w, h
 
     def _set_cursor_state(self, value):
