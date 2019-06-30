@@ -286,6 +286,7 @@ cdef class _WindowSDL2Storage:
             num = SDL_SYSTEM_CURSOR_HAND
         else:
             return False
+        Logger.debug('SDL_CreateSystemCursor')
         new_cursor = SDL_CreateSystemCursor(num)
         self.set_cursor(new_cursor)
         return True
@@ -294,6 +295,7 @@ cdef class _WindowSDL2Storage:
         SDL_SetCursor(cursor)
 
     def raise_window(self):
+        Logger.debug('SDL_RaiseWindow')
         SDL_RaiseWindow(self.win)
 
     def _get_gl_size(self):
@@ -311,6 +313,7 @@ cdef class _WindowSDL2Storage:
             mode.h = draw_h
             SDL_SetWindowDisplayMode(self.win, &mode)
         else:
+            Logger.debug('SDL_SetWindowDisplayMode')
             mode.w = w
             mode.h = h
             SDL_SetWindowDisplayMode(self.win, &mode)
@@ -320,9 +323,11 @@ cdef class _WindowSDL2Storage:
 
     def resize_window(self, w, h):
         if self.window_size != [w, h]:
+            Logger.debug('SDL_SetWindowSize')
             SDL_SetWindowSize(self.win, w, h)
 
     def set_minimum_size(self, w, h):
+        Logger.debug('SDL_SetWindowMinimumSize')
         SDL_SetWindowMinimumSize(self.win, w, h)
 
     def set_allow_screensaver(self, allow_screensaver):
@@ -332,24 +337,31 @@ cdef class _WindowSDL2Storage:
             SDL_DisableScreenSaver()
 
     def maximize_window(self):
+        Logger.debug('SDL_MaximizeWindow')
         SDL_MaximizeWindow(self.win)
 
     def minimize_window(self):
+        Logger.debug('SDL_MinimizeWindow')
         SDL_MinimizeWindow(self.win)
 
     def restore_window(self):
+        Logger.debug('SDL_RestoreWindow')
         SDL_RestoreWindow(self.win)
 
     def hide_window(self):
+        Logger.debug('SDL_HideWindow')
         SDL_HideWindow(self.win)
 
     def show_window(self):
+        Logger.debug('SDL_ShowWindow')
         SDL_ShowWindow(self.win)
 
     def set_border_state(self, state):
+        Logger.debug('SDL_SetWindowBordered')
         SDL_SetWindowBordered(self.win, SDL_FALSE if state else SDL_TRUE)
 
     def set_fullscreen_mode(self, mode):
+        Logger.debug('SDL_SetWindowFullscreen')
         if mode == 'auto':
             mode = SDL_WINDOW_FULLSCREEN_DESKTOP
         elif mode is True:
@@ -360,6 +372,7 @@ cdef class _WindowSDL2Storage:
             SDL_SetWindowFullscreen(self.win, mode)
 
     def set_window_title(self, title):
+        Logger.debug('SDL_SetWindowTitle')
         SDL_SetWindowTitle(self.win, <bytes>title.encode('utf-8'))
 
     def get_window_pos(self):
@@ -368,6 +381,7 @@ cdef class _WindowSDL2Storage:
         return x, y
 
     def set_window_pos(self, x, y):
+        Logger.debug('SDL_SetWindowPosition')
         SDL_SetWindowPosition(self.win, x, y)
 
     def get_window_info(self):
@@ -465,6 +479,7 @@ cdef class _WindowSDL2Storage:
     # twb end
 
     def set_window_icon(self, filename):
+        Logger.debug('SDL_SetWindowIcon')
         icon = IMG_Load(<bytes>filename.encode('utf-8'))
         SDL_SetWindowIcon(self.win, icon)
 
