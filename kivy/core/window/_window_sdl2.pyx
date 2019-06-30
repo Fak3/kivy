@@ -91,9 +91,9 @@ cdef class _WindowSDL2Storage:
                 # the same fullscreen setting as AndroidManifest.xml.
                 if environ.get('P4A_IS_WINDOWED', 'True') == 'False':
                     self.win_flags |= SDL_WINDOW_FULLSCREEN
-                    Logger.debug("Window: Android fullscreen mode")
+                    Logger.info("Window: Android fullscreen mode")
                 else:
-                    Logger.debug("Window: Android windowed mode")
+                    Logger.info("Window: Android windowed mode")
             elif fullscreen == 'auto':
                 self.win_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP
             elif fullscreen is True:
@@ -129,7 +129,7 @@ cdef class _WindowSDL2Storage:
         # var. Note that this takes priority over any other setting.
         orientations = environ.get('KIVY_ORIENTATION', orientations)
 
-        Logger.debug('Window: orientations: "%s"' % orientations)
+        Logger.info('Window: orientations: "%s"' % orientations)
         SDL_SetHint(SDL_HINT_ORIENTATIONS, <bytes>(orientations.encode('utf-8')))
 
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
@@ -194,7 +194,7 @@ cdef class _WindowSDL2Storage:
                 NULL, x, y, width, height, self.win_flags
             )
             if not self.win:
-                Logger.debug('Window: failed to enable multisamples')
+                Logger.info('Window: failed to enable multisamples')
                 # if an error occurred, create window without multisampling:
                 SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 0)
                 SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 0)
@@ -202,7 +202,7 @@ cdef class _WindowSDL2Storage:
                     NULL, x, y, width, height, self.win_flags
                 )
             else:
-                Logger.debug('Window: enabled multisamples')
+                Logger.info('Window: enabled multisamples')
         elif shaped > 0:
             # try to create shaped window:
             self.win = SDL_CreateShapedWindow(

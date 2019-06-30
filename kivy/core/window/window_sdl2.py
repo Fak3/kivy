@@ -228,12 +228,12 @@ class WindowSDL(WindowBase):
         elif action == 'app_willenterbackground':
             from kivy.base import stopTouchApp
             app = App.get_running_app()
-            if not app:
-                Logger.info('WindowSDL: No running App found, exit.')
-                stopTouchApp()
-                return 0
+            #if not app:
+                #Logger.info('WindowSDL: No running App found, exit.')
+                #stopTouchApp()
+                #return 0
 
-            if not app.dispatch('on_pause'):
+            if app and not app.dispatch('on_pause'):
                 Logger.info(
                     'WindowSDL: App doesn\'t support pause mode, stop.')
                 stopTouchApp()
@@ -248,7 +248,8 @@ class WindowSDL(WindowBase):
             if self._pause_loop:
                 self._pause_loop = False
                 app = App.get_running_app()
-                app.dispatch('on_resume')
+                if app:
+                    app.dispatch('on_resume')
 
         elif action == 'windowresized':
             self._size = largs
