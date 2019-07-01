@@ -107,7 +107,7 @@ cdef class _WindowSDL2Storage:
 
         SDL_SetHint(SDL_HINT_ACCELEROMETER_AS_JOYSTICK, b'0')
 
-        SDL_SetHintWithPriority(b'SDL_ANDROID_TRAP_BACK_BUTTON', b'1',
+        SDL_SetHintWithPriority(b'SDL_ANDROID_TRAP_BACK_BUTTON', b'0',
                                 SDL_HINT_OVERRIDE)
 
         if SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0:
