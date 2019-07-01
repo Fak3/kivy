@@ -638,7 +638,7 @@ class WindowSDL(WindowBase):
 
             elif action in ('keydown', 'keyup'):
                 mod, key, scancode, kstr = args
-
+                Logger.info('key %s %s %s %s', mod, key, scancode, kstr)
                 try:
                     key = self.key_map[key]
                 except KeyError:
